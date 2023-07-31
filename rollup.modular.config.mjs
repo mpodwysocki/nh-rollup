@@ -4,9 +4,10 @@ import json from "@rollup/plugin-json";
 import multiEntry from "@rollup/plugin-multi-entry";
 import sourcemaps from "rollup-plugin-sourcemaps";
 import nodeBuiltins from "builtin-modules";
-import nodePolyfills from 'rollup-plugin-polyfill-node';
+import nodePolyfills from "rollup-plugin-polyfill-node";
 import shim from "rollup-plugin-shim";
-import outputSize from 'rollup-plugin-output-size';
+import outputSize from "rollup-plugin-output-size";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default {
 	input: "./dist-esm/src/modular.mjs",
@@ -36,5 +37,8 @@ export default {
       preferBuiltins: false
     }),
     json(),
+    visualizer({
+      filename: "./stats.modular.html",
+    }),
   ],
 };
