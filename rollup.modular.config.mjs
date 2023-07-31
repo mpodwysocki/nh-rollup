@@ -1,6 +1,5 @@
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import inject from "@rollup/plugin-inject";
 import json from "@rollup/plugin-json";
 import multiEntry from "@rollup/plugin-multi-entry";
 import sourcemaps from "rollup-plugin-sourcemaps";
@@ -15,9 +14,13 @@ export default {
 		file: "./dist/modular.bundle.js",
 		format: "umd",
     sourcemap: true,
+    globals: {
+      "dotenv": "dotenv",
+    }
 	},
   external: [
     ...nodeBuiltins,
+    "dotenv"
   ],
   plugins: [
     outputSize(),
@@ -31,12 +34,6 @@ export default {
     nodeResolve({
       mainFields: ["module", "browser"],
       preferBuiltins: false
-    }),
-    inject({
-      modules: {
-        process: "process",
-      },
-      exclude: ["package.json"],
     }),
     json(),
   ],
